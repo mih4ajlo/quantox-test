@@ -1,0 +1,21 @@
+header{
+	p{
+		width: 100vw;
+		background-color: red;
+		a{
+			background-color: blue;
+		}	
+	}
+	
+}
+
+main{
+	table{
+		border:1px solid black;
+		min-width: 30rem;
+
+		th, td{
+			border:1px solid black;
+		}
+	}
+}
