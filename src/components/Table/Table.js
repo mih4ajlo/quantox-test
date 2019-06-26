@@ -4,33 +4,42 @@ import React, { Component } from 'react';
 import TableRow from './Row/TableRow';
 import HeaderRow from './Row/HeaderRow';
 
+import './Table.scss'
+
 class Table extends Component {
+
+    state = {
+        data: [],
+        noOfRows: 50,
+        pages: 2,
+        currentPage: 0,
+    }
 
 
     render() {
 
-        const rows = this.props.data.map((el, ind) => {
+        const dataDisplay = this.props.data.slice(this.state.currentPage * this.state.noOfRows, this.state.noOfRows)
 
+        const rows = dataDisplay.map((el, ind) => {
 
-            return (<TableRow key={ind} coinsAmount={this.props.userCoins[el.symbol]} {...el}/>);
+            return (<TableRow key={ind} ind={ind + 1} coins={this.props.userCoins[el.symbol]} {...el}/>);
         })
 
-        //console.log("rows", rows);
 
         return (
-            <div>
-                    <table>
-                      <thead>
-                        <HeaderRow/>
-                        
-                      </thead>
+            <div className="tableContainer">
+                <table>
+                  <thead>
+                    <HeaderRow/>
+                    
+                  </thead>
 
-                      <tbody>
-                        {rows}
-                      </tbody>  
-                    </table>
+                  <tbody>
+                    {rows}
+                  </tbody>  
+                </table>
 
-                </div>
+            </div>
         );
     }
 

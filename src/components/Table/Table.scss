@@ -1,0 +1,13 @@
+.tableContainer{
+	width: 90%;
+	margin: auto;
+}
+.tableContainer tbody {
+	& tr:nth-child(odd){
+		background-color: gray;	
+	}
+	& tr:nth-child(even){
+		background-color: white;	
+	}
+	
+}

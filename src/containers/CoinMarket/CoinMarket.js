@@ -21,6 +21,39 @@ class CoinMarket extends Component {
     }
 
 
+    constructor(props) {
+        super(props)
+
+        //check every hour
+        setInterval(this.getData, 60 * 60 * 1000)
+    }
+
+    getData = () => {
+        axios.get('/listings/latest')
+            .then(res => {
+
+                let ls_entry = {
+                    "data": [],
+                    "timestamp": Date.now(),
+                };
+
+                ls_entry.data = res.data.data
+                ls.set("all_data", ls_entry)
+
+                this.setState({
+                    all_data: res.data.data,
+                    loader: false
+                })
+
+                //update data stored
+
+            })
+            .catch(err => {
+                console.log(err);
+
+            });
+    }
+
     componentDidMount() {
 
         let ls_entry = ls.get("all_data");
@@ -32,29 +65,10 @@ class CoinMarket extends Component {
             })
         }
 
-
+        //if data is somehow older then hour, get them again
         if (ls_entry.timestamp + 60 * 60 * 1000 < Date.now()) {
+            this.getData();
 
-            axios.get('/listings/latest')
-                .then(res => {
-                    let ls_entry = {
-                        "data": [],
-                        "timestamp": Date.now(),
-                    };
-
-                    ls_entry.data = res.data.data
-                    ls.set("all_data", ls_entry)
-
-                    this.setState({
-                        all_data: res.data.data,
-                        loader: false
-                    })
-
-                })
-                .catch(err => {
-                    console.log(err);
-
-                });
         } else {
             this.setState({
                 all_data: ls_entry.data,
@@ -71,9 +85,9 @@ class CoinMarket extends Component {
             <div>
 				{this.state.loader ? <Loader/> : null }
 
-				<NavLink to="/details">Detalji</NavLink>
+				<h2>Quantox market test</h2>
 
-				<PlaceHolder/>
+				
 				<TableContainer data={this.state.all_data} userCoins={this.state.userCoins} />
 
 				
