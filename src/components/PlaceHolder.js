@@ -21,9 +21,11 @@ const PlaceHolder = (props) => {
 		          
 
 		          <li><strike>route-dom: details page, putanje i history</strike> </li>
-		          <li>cuvanje i restor kupljenih resursa</li>
+		          <li><strike>cuvanje i restor kupljenih resursa</strike></li>
+		          <li>prikazivanje samo prvih 50</li>
 		          <li>Osvezavanje podataka na sat vremena</li>
 		          <li>regex za proveru user inputa</li>
+		          <li>last access</li>
 		          <li>prikazati koliko je dobio dolara od proslog puta kada se ulogovao</li>
 		          <li>paginacija, 10 per page - state menjaj</li>
 		          <li>stilizovanje tabele</li>

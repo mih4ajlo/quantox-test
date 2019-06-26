@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 
 import ls from 'local-storage';
+import Big from 'big.js';
 
 class TableRow extends Component {
 
-
-    state={
-        disabled: true,
-        value: 0
+    state = {
+        disabled: !this.props.coinsAmount,
+        amountOfCoins: this.props.coinsAmount || 0,
+        valueOfCoins: 0,
     }
 
     checkNumber = (ev) => {
@@ -18,7 +19,8 @@ class TableRow extends Component {
 
         this.setState({
             disabled: isBtnDisabled,
-            value: ev.target.value
+            amountOfCoins: ev.target.value,
+            valueOfCoins: 0,
         })
     }
 
@@ -34,13 +36,22 @@ class TableRow extends Component {
 
         ls.set("userCoins", userCoins)
 
-        alert("ev")
-        console.log(this.props);
+
+    }
+
+    handleKeyPress=(ev) => {
+        //check if enter is pressed
+        if (ev.keyCode == 13) {
+            this.handleClick(ev)
+        }
 
     }
 
     render() {
 
+        const a = new Big(this.state.amountOfCoins)
+        const b = new Big(this.props.quote.USD.price)
+        const z = a.times(b).toFixed(2).toString();
 
         return (
             <tr key={this.props.id} id={this.props.id}>
@@ -62,14 +73,16 @@ class TableRow extends Component {
             type="number"
             onChange={this.checkNumber}
             placeholder="my value"
-            value={this.props.coinsAmount}
+            value={this.state.amountOfCoins}
+            onKeyDown={this.handleKeyPress}
             />
 
             <button
             disabled={this.state.disabled}
-            onClick={this.handleClick}>Submit</button>
+            onClick={this.handleClick}
+            >Submit</button>
           </td>
-          <td>$ value my coins </td>
+          <td>$ { z } </td>
         </tr>
         );
     }
