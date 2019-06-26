@@ -1,0 +1,46 @@
+.detailsContainer{
+	margin: auto;
+	width: 90vw;
+	display: grid;
+	grid-template-columns:  30% 40% 30%;
+	/* grid-template-rows: 30% 30%; */
+	grid-column-gap:10px;
+	grid-row-gap: 20px;
+
+	grid-template-areas: 
+		"left center right"
+		"left footer right";
+}
+
+.coinValueDetails{
+	grid-area: footer;
+	
+	ul{
+		list-style-type: none;
+		
+	}
+}
+
+@mixin align(){
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    align-content:center;
+}
+
+.detailsContainer_entry_1{
+	grid-area: left;
+	
+	padding-left: 0;
+    @include align();
+}
+.detailsContainer_entry_2{
+	grid-area: center;
+	@include align();
+}
+.detailsContainer_entry_3{
+	grid-area: right;
+	@include align();
+}
+
